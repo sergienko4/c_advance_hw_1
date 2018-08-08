@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{413D14B7-666E-4C13-AD6A-92C7EC3ADD34}</ProjectGuid>
+    <ProjectGuid>{984E94A0-0002-40B8-9D30-E2704D275A2A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>HW</RootNamespace>
   </PropertyGroup>
@@ -74,7 +74,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="NodeModel.c" />
     <ClCompile Include="Program.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NodeModel.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

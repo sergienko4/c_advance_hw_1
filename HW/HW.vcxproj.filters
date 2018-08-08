@@ -18,5 +18,13 @@
     <ClCompile Include="Program.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="NodeModel.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NodeModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
