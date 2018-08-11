@@ -11,10 +11,14 @@ int** createMatrix(int coll, int row);
 void EX1();
 void EX2();
 void EX03();
+//void EX04();
+
 int** multyplayMatrix(int matrixA[MATRIXC][MATRIXR], int matrixB[MATRIXC][MATRIXR]);
 unsigned int * powerArray(int length);
 void printMatrix(int*** matrix);
 int scanMatrixToNode(int** matrix, int row, int col, Record** list, Node** head);
+void insertDataToMatrix(int** matrix, int row, int col);
+void FreeForMatrix(int** matrix, int row, int col);
 
 
 
@@ -22,6 +26,7 @@ void main() {
 	//EX1();
 	//EX2();
 	EX03();
+	//EX04();
 }
 void EX1() {
 
@@ -111,18 +116,25 @@ void EX03() {
 	int** matrix;
 	int row, coll, arrayLength;
 	Record* list = NULL;
-	Node* head;
+	Node* head = NULL;
+	Node* headT;
 
-	/*printf("Enter number of rows");
+	printf("Enter number of rows\n");
 	scanf("%d",&row);
-	printf("Enter number of colooms");
-	scanf("%d",&coll);*/
-
+	printf("Enter number of col\n");
+	scanf("%d",&coll);
+	
 	row = 4;
 	coll = 5;
+	
+	// get matrix
 	matrix = createMatrix(coll, row);
+	
+	 //init matrix
+	insertDataToMatrix(matrix, row, coll);
 
-	matrix[0][0] = 3;
+
+	/*matrix[0][0] = 3;
 	matrix[0][1] = 2;
 	matrix[0][2] = 5;
 	matrix[0][3] = 3;
@@ -144,21 +156,45 @@ void EX03() {
 	matrix[3][1] = 8;
 	matrix[3][2] = 6;
 	matrix[3][3] = 6;
-	matrix[3][4] = 1;
+	matrix[3][4] = 1;*/
 
 
 
 	arrayLength = scanMatrixToNode(matrix, row, coll, &list, &head);
 
+	while (head != NULL) {
+		headT = head->next;
+		free(head->value);
+		free(head);
+		head = headT;
+	}
 
+	FreeForMatrix(matrix, row, coll);
+}
+void insertDataToMatrix(int** matrix, int row, int col) {
+
+	int i, j;
+	int input;
+	for (i = 0; i < row; i++)
+	{
+		for (j = 0; j < col; j++)
+		{
+			printf("Enter value to index %d (row)  x %d (col) \n", i + 1, j + 1);
+			scanf("%d", &input);
+			matrix[i][j] = input;
+		}
+	}
 }
 int scanMatrixToNode(int** matrix, int row, int col, Record** list, Node** head) {
 
 	Record* temp1;
 	Node* headT;
 	int i, j, index = 0, count = 0;
+
+	//run matrix
 	for (i = 0; i < row; i++) {
 		for (j = 0; j < col; j++) {
+			// check the vlue to parten
 			if (matrix[i][j] == i + j) {
 				addNode(createNode(i, j), head);
 				count++;
@@ -170,13 +206,13 @@ int scanMatrixToNode(int** matrix, int row, int col, Record** list, Node** head)
 		return;
 
 
-	// create array og node
+	// create array of node
 	*list = (Record*) calloc(count, sizeof(Record));
 	
 
 	// coppy values to array
 	headT = *head;
-	while(index!=count){
+	while(count!=count){
 		*(list + index) = (Record*)malloc(sizeof(Record));
 		(*list)[index].i = headT->value->i;
 		(*list)[index].j = headT->value->j;
@@ -202,4 +238,12 @@ int** createMatrix(int col, int row) {
 
 	return multypliedMatrix;
 }
-
+void FreeForMatrix(int** matrix, int row, int col)
+{
+	int i, j;
+	for (i = 0; i < row; i++)
+	{
+		free(matrix[i]);
+	}
+	free(matrix);
+}
