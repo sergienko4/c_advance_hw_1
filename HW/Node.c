@@ -6,20 +6,28 @@ NodeR* createNodeR(int value) {
 	NodeR* p = (NodeR*)malloc(sizeof(NodeR));
 	p->value = value;
 	p->next = NULL;
+	return p;
 }
 
 void addNodeTail(NodeR* next, NodeR** head) {
 
-	if (*head == NULL) {
-		head = next;
+	NodeR* temp = (*head);
+	if (temp == NULL) {
+		*head = createNodeR(next->value);
 	}
 	else {
-		while ((*head)->next != NULL)
+		while (temp->next != NULL)
 		{
-			(*head) = (*head)->next;
+			temp = temp->next;
 		}
-		(*head)->next = next;
+		temp->next = createNodeR(next->value);
 	}
+}
+
+void addNodeHead(NodeR* next, NodeR** head) {
+	NodeR* temp = createNodeR(next->value);
+	temp->next = (*head);
+	*head = temp;
 }
 
 

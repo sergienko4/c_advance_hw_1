@@ -8,3 +8,4 @@ typedef struct nodeR {
 
 NodeR* createNodeR(int value);
 void addNodeTail(NodeR* next, NodeR** head);
+void addNodeHead(NodeR* next, NodeR** head);

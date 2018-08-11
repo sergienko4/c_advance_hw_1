@@ -2,31 +2,36 @@
 #include<stdlib.h>
 #include <math.h>
 #include "NodeModel.h"
+#include "Node.h"
 
 #define MATRIXC 3
 #define MATRIXR 3
 
-
 int** createMatrix(int coll, int row);
+void FreeForMatrix(int** matrix, int row, int col);
+void FreeForNodeR(NodeR** list);
+
+
+void printMatrix(int*** matrix);
+
 void EX1();
 void EX2();
 void EX03();
-//void EX04();
+void EX04();
 
 int** multyplayMatrix(int matrixA[MATRIXC][MATRIXR], int matrixB[MATRIXC][MATRIXR]);
 unsigned int * powerArray(int length);
-void printMatrix(int*** matrix);
+
 int scanMatrixToNode(int** matrix, int row, int col, Record** list, Node** head);
 void insertDataToMatrix(int** matrix, int row, int col);
-void FreeForMatrix(int** matrix, int row, int col);
-
-
+NodeR* initNode();
+NodeR* SplitNodeToOdd(NodeR** sourceHead);
 
 void main() {
 	//EX1();
 	//EX2();
-	EX03();
-	//EX04();
+	//EX03();
+	EX04();
 }
 void EX1() {
 
@@ -120,17 +125,17 @@ void EX03() {
 	Node* headT;
 
 	printf("Enter number of rows\n");
-	scanf("%d",&row);
+	scanf("%d", &row);
 	printf("Enter number of col\n");
-	scanf("%d",&coll);
-	
+	scanf("%d", &coll);
+
 	row = 4;
 	coll = 5;
-	
+
 	// get matrix
 	matrix = createMatrix(coll, row);
-	
-	 //init matrix
+
+	//init matrix
 	insertDataToMatrix(matrix, row, coll);
 
 
@@ -207,19 +212,19 @@ int scanMatrixToNode(int** matrix, int row, int col, Record** list, Node** head)
 
 
 	// create array of node
-	*list = (Record*) calloc(count, sizeof(Record));
-	
+	*list = (Record*)calloc(count, sizeof(Record));
+
 
 	// coppy values to array
 	headT = *head;
-	while(count!=count){
+	while (count != count) {
 		*(list + index) = (Record*)malloc(sizeof(Record));
 		(*list)[index].i = headT->value->i;
 		(*list)[index].j = headT->value->j;
 		(*list)[index].value = headT->value->value;
 
-	    headT = headT->next;
-	    index++;
+		headT = headT->next;
+		index++;
 	}
 
 	return count;
@@ -246,4 +251,82 @@ void FreeForMatrix(int** matrix, int row, int col)
 		free(matrix[i]);
 	}
 	free(matrix);
+}
+void EX04() {
+	int value = 0;
+	NodeR* head = NULL;
+	NodeR* headOdd = NULL;
+
+	head = initNode();
+	headOdd = SplitNodeToOdd(&head);
+
+	FreeForNodeR(&head);
+	FreeForNodeR(&headOdd);
+}
+void FreeForNodeR(NodeR** list) {
+
+	NodeR* temp;
+	while (*list != NULL) {
+		temp = *list;
+		(*list) = temp->next;
+		free(temp);
+	}
+
+}
+NodeR* initNode() {
+	NodeR* headT = NULL;
+	NodeR* head = NULL;
+	int value = 0;
+
+
+	while (value != -1) {
+
+		printf("Enter value \n");
+		scanf("%d", &value);
+
+		if (value != -1) {
+			headT = createNodeR(value);
+
+			if (head == NULL) {
+				head = headT;
+			}
+			else
+			{
+				addNodeTail(headT, &head);
+			}
+		}
+
+	}
+
+	return head;
+
+}
+NodeR* SplitNodeToOdd(NodeR** sourceHead) {
+	NodeR* newList = NULL;
+	NodeR* toFree = NULL;
+
+	int counter = 0;
+	NodeR* temp = *sourceHead;
+
+	while (temp != NULL && temp->next != NULL) {
+		if (temp->next->value % 2 == 1) {
+			addNodeTail(temp->next, &newList);
+			toFree = temp->next;
+			temp->next = temp->next->next;
+			free(toFree);
+		}
+		else {
+			temp = temp->next;
+		}
+	}
+
+	// for first chain
+	if ((*sourceHead) != NULL && (*sourceHead)->value % 2 == 1) {
+		addNodeHead(*sourceHead, &newList);
+		toFree = *sourceHead;
+		*sourceHead = (*sourceHead)->next;
+		free(toFree);
+	}
+
+	return newList;
 }
