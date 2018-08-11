@@ -10,15 +10,16 @@
 int** createMatrix(int coll, int row);
 void FreeForMatrix(int** matrix, int row, int col);
 void FreeForNodeR(NodeR** list);
+int getNumber();
 
 
 void printMatrix(int*** matrix);
 
-void EX1();
-void EX2();
-void EX03();
-void EX04();
-void EX05();
+void Ex1();
+void Ex2();
+void Ex3();
+void Ex4();
+void Ex5();
 
 int** multyplayMatrix(int matrixA[MATRIXC][MATRIXR], int matrixB[MATRIXC][MATRIXR]);
 unsigned int * powerArray(int length);
@@ -31,36 +32,52 @@ NodeR* SplitNodeToOddByRef(NodeR** sourceHead);
 
 
 void main() {
-	//EX1();
-	//EX2();
-	//EX03();
-	//EX04();
-	EX05();
+	int select = 0, i, all_Ex_in_loop = 0;
+	printf("Run menu once or cyclically?\n(Once - enter 0, cyclically - enter other number) ");
+	if (scanf("%d", &all_Ex_in_loop) == 1)
+		do
+		{
+			for (i = 1; i <= 5; i++)
+				printf("Ex%d--->%d\n", i, i);
+			printf("EXIT-->0\n");
+			do {
+				select = 0;
+				printf("please select 0-5 : ");
+				scanf("%d", &select);
+			} while ((select < 0) || (select > 5));
+			switch (select)
+			{
+			case 1: Ex1(); break;
+			case 2: Ex2(); break;
+			case 3: Ex3(); break;
+			case 4: Ex4(); break;
+			case 5: Ex5(); break;
+			}
+		} while (all_Ex_in_loop && select);
+		return 0;
+
 }
-void EX1() {
+void Ex1() {
 
-	int length = 0, i = 0, temp;
-	unsigned int *p;
-
-	do {
-		// get numb from user
-		printf("enter number bigger than 0 ");
-		scanf("%d", &length);
-
-	} while (length < 1);
+	int length = 0, i = 0;
+	unsigned int* p;
 
 
+	length = getNumber();
+	
+	// from 2^0 to 2^length
+	length++;
+	
 	p = powerArray(length);
 
 
 	for (i = 0; i < length; i++) {
-		temp = i;
-		printf("%d: %u\n", i, p[i]);
+		printf("index: %3d -> 2^%3d: = %u\n", i, (i % 32), p[i]);
 	}
 
 	free(p);
 }
-void EX2() {
+void Ex2() {
 
 	int** multypliedMatrix;
 	int matrixA[MATRIXC][MATRIXR] = { { 1, 5, 6 },{ 4, 4, 8 },{ 2, 3, 4 } };
@@ -71,26 +88,23 @@ void EX2() {
 
 	//printMatrix(&multypliedMatrix);
 }
-void EX03() {
+void Ex3() {
 	int** matrix;
-	int row, coll, arrayLength;
+	int row, col, arrayLength;
 	Record* list = NULL;
 	Node* head = NULL;
 	Node* headT;
 
-	printf("Enter number of rows\n");
-	scanf("%d", &row);
-	printf("Enter number of col\n");
-	scanf("%d", &coll);
-
-	row = 4;
-	coll = 5;
+	printf("number of rows ");
+	row = getNumber();
+	printf("number of col ");
+	col = getNumber();
 
 	// get matrix
-	matrix = createMatrix(coll, row);
+	matrix = createMatrix(col, row);
 
 	//init matrix
-	insertDataToMatrix(matrix, row, coll);
+	insertDataToMatrix(matrix, row, col);
 
 
 	/*matrix[0][0] = 3;
@@ -119,8 +133,9 @@ void EX03() {
 
 
 
-	arrayLength = scanMatrixToNode(matrix, row, coll, &list, &head);
+	arrayLength = scanMatrixToNode(matrix, row, col, &list, &head);
 
+	printMatrix(&matrix);
 	while (head != NULL) {
 		headT = head->next;
 		free(head->value);
@@ -128,9 +143,9 @@ void EX03() {
 		head = headT;
 	}
 
-	FreeForMatrix(matrix, row, coll);
+	FreeForMatrix(matrix, row, col);
 }
-void EX04() {
+void Ex4() {
 	NodeR* head = NULL;
 	NodeR* headOdd = NULL;
 
@@ -140,7 +155,7 @@ void EX04() {
 	FreeForNodeR(&head);
 	FreeForNodeR(&headOdd);
 }
-void EX05() {
+void Ex5() {
 	NodeR* head = NULL;
 	NodeR* headOdd = NULL;
 
@@ -153,30 +168,33 @@ void EX05() {
 
 
 
-unsigned int * powerArray(int length) {
+unsigned int* powerArray(int length) {
 	unsigned int value;
 	int i;
+	int base = 2;
 	unsigned int *p = (unsigned int *)malloc(sizeof(unsigned int)*length);
 
-	if (*p == NULL) {
+	if (p == NULL) {
 		printf("Not enoght memory");
 		return NULL;
 	}
 	else {
-		for (i = 0; i < length; i++) {
 
+		p[0] = 1;
+		for (i = 1; i < length; i++) {
 			if (i < 32) {
-				value = (unsigned int)pow((double)2, i);
+				value = (p[i - 1] * base);
 				p[i] = value;
 			}
 			else {
 				p[i] = (unsigned int)p[i % 32];
 			}
 		}
+
 	}
 	return p;
-
 }
+
 int** multyplayMatrix(int matrixA[MATRIXC][MATRIXR], int matrixB[MATRIXC][MATRIXR]) {
 	int** multypliedMatrix;
 	int i, j, value;
@@ -195,9 +213,9 @@ int** multyplayMatrix(int matrixA[MATRIXC][MATRIXR], int matrixB[MATRIXC][MATRIX
 }
 void printMatrix(int*** matrix) {
 	int i, j, value;
-	for (i = 0; i < MATRIXC; i++) {
-		for (j = 0; j < MATRIXR; j++) {
-			printf("%3d", (*(*matrix + i) + j));
+	for (i = 0; i < MATRIXR; i++) {
+		for (j = 0; j < MATRIXC; j++) {
+			printf("%3d", *(*(*matrix + i) + j));
 		}
 		printf("\n");
 	}
@@ -235,7 +253,7 @@ int scanMatrixToNode(int** matrix, int row, int col, Record** list, Node** head)
 	}
 
 	if (count == 0)
-		return;
+		return count;
 
 
 	// create array of node
@@ -297,9 +315,11 @@ NodeR* initNode() {
 
 	while (value != -1) {
 
-		printf("Enter value \n");
+		printf("enter number");
 		scanf("%d", &value);
+		printf("Got %d \n", value);
 
+		
 		if (value != -1) {
 			headT = createNodeR(value);
 
@@ -380,4 +400,18 @@ NodeR* SplitNodeToOddByRef(NodeR** sourceHead) {
 	}
 
 	return newList;
+}
+
+int getNumber() {
+
+	int input = 0;
+	do {
+		// get numb from user
+		printf("enter number bigger than 0: ");
+		scanf("%d", &input);
+		printf("Got %d \n", input);
+
+	} while (input < 1);
+
+	return input;
 }
