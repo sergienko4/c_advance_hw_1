@@ -18,20 +18,24 @@ void EX1();
 void EX2();
 void EX03();
 void EX04();
+void EX05();
 
 int** multyplayMatrix(int matrixA[MATRIXC][MATRIXR], int matrixB[MATRIXC][MATRIXR]);
 unsigned int * powerArray(int length);
-
 int scanMatrixToNode(int** matrix, int row, int col, Record** list, Node** head);
 void insertDataToMatrix(int** matrix, int row, int col);
 NodeR* initNode();
 NodeR* SplitNodeToOdd(NodeR** sourceHead);
+NodeR* SplitNodeToOddByRef(NodeR** sourceHead);
+
+
 
 void main() {
 	//EX1();
 	//EX2();
 	//EX03();
-	EX04();
+	//EX04();
+	EX05();
 }
 void EX1() {
 
@@ -56,66 +60,16 @@ void EX1() {
 
 	free(p);
 }
-unsigned int * powerArray(int length) {
-	unsigned int value;
-	int i;
-	unsigned int *p = (unsigned int *)malloc(sizeof(unsigned int)*length);
-
-	if (*p == NULL) {
-		printf("Not enoght memory");
-		return NULL;
-	}
-	else {
-		for (i = 0; i < length; i++) {
-
-			if (i < 32) {
-				value = (unsigned int)pow((double)2, i);
-				p[i] = value;
-			}
-			else {
-				p[i] = (unsigned int)p[i % 32];
-			}
-		}
-	}
-	return p;
-
-}
 void EX2() {
 
 	int** multypliedMatrix;
-	int matrixA[MATRIXC][MATRIXR] = { {1, 5, 6},{4, 4, 8},{2, 3, 4} };
-	int matrixB[MATRIXC][MATRIXR] = { {1, 5, 6},{4, 4, 8},{2, 3, 4} };
+	int matrixA[MATRIXC][MATRIXR] = { { 1, 5, 6 },{ 4, 4, 8 },{ 2, 3, 4 } };
+	int matrixB[MATRIXC][MATRIXR] = { { 1, 5, 6 },{ 4, 4, 8 },{ 2, 3, 4 } };
 
 
 	multypliedMatrix = multyplayMatrix(matrixA, matrixB);
 
 	//printMatrix(&multypliedMatrix);
-}
-int** multyplayMatrix(int matrixA[MATRIXC][MATRIXR], int matrixB[MATRIXC][MATRIXR]) {
-	int** multypliedMatrix;
-	int i, j, value;
-
-	multypliedMatrix = createMatrix(MATRIXC, MATRIXR);
-
-	// math
-	for (i = 0; i < MATRIXC; i++) {
-		for (j = 0; j < MATRIXR; j++) {
-			value = (matrixA[i][j] * matrixB[i][j]);
-			multypliedMatrix[i][j] = value;
-		}
-	}
-	// return poinet of metrix
-	return multypliedMatrix;
-}
-void printMatrix(int*** matrix) {
-	int i, j, value;
-	for (i = 0; i < MATRIXC; i++) {
-		for (j = 0; j < MATRIXR; j++) {
-			printf("%3d", (*(*matrix + i) + j));
-		}
-		printf("\n");
-	}
-	printf("_______________________________________________\n");
 }
 void EX03() {
 	int** matrix;
@@ -175,6 +129,79 @@ void EX03() {
 	}
 
 	FreeForMatrix(matrix, row, coll);
+}
+void EX04() {
+	NodeR* head = NULL;
+	NodeR* headOdd = NULL;
+
+	head = initNode();
+	headOdd = SplitNodeToOdd(&head);
+
+	FreeForNodeR(&head);
+	FreeForNodeR(&headOdd);
+}
+void EX05() {
+	NodeR* head = NULL;
+	NodeR* headOdd = NULL;
+
+	head = initNode();
+	headOdd = SplitNodeToOddByRef(&head);
+
+	FreeForNodeR(&head);
+	FreeForNodeR(&headOdd);
+}
+
+
+
+unsigned int * powerArray(int length) {
+	unsigned int value;
+	int i;
+	unsigned int *p = (unsigned int *)malloc(sizeof(unsigned int)*length);
+
+	if (*p == NULL) {
+		printf("Not enoght memory");
+		return NULL;
+	}
+	else {
+		for (i = 0; i < length; i++) {
+
+			if (i < 32) {
+				value = (unsigned int)pow((double)2, i);
+				p[i] = value;
+			}
+			else {
+				p[i] = (unsigned int)p[i % 32];
+			}
+		}
+	}
+	return p;
+
+}
+int** multyplayMatrix(int matrixA[MATRIXC][MATRIXR], int matrixB[MATRIXC][MATRIXR]) {
+	int** multypliedMatrix;
+	int i, j, value;
+
+	multypliedMatrix = createMatrix(MATRIXC, MATRIXR);
+
+	// math
+	for (i = 0; i < MATRIXC; i++) {
+		for (j = 0; j < MATRIXR; j++) {
+			value = (matrixA[i][j] * matrixB[i][j]);
+			multypliedMatrix[i][j] = value;
+		}
+	}
+	// return poinet of metrix
+	return multypliedMatrix;
+}
+void printMatrix(int*** matrix) {
+	int i, j, value;
+	for (i = 0; i < MATRIXC; i++) {
+		for (j = 0; j < MATRIXR; j++) {
+			printf("%3d", (*(*matrix + i) + j));
+		}
+		printf("\n");
+	}
+	printf("_______________________________________________\n");
 }
 void insertDataToMatrix(int** matrix, int row, int col) {
 
@@ -252,17 +279,6 @@ void FreeForMatrix(int** matrix, int row, int col)
 	}
 	free(matrix);
 }
-void EX04() {
-	int value = 0;
-	NodeR* head = NULL;
-	NodeR* headOdd = NULL;
-
-	head = initNode();
-	headOdd = SplitNodeToOdd(&head);
-
-	FreeForNodeR(&head);
-	FreeForNodeR(&headOdd);
-}
 void FreeForNodeR(NodeR** list) {
 
 	NodeR* temp;
@@ -305,7 +321,6 @@ NodeR* SplitNodeToOdd(NodeR** sourceHead) {
 	NodeR* newList = NULL;
 	NodeR* toFree = NULL;
 
-	int counter = 0;
 	NodeR* temp = *sourceHead;
 
 	while (temp != NULL && temp->next != NULL) {
@@ -326,6 +341,42 @@ NodeR* SplitNodeToOdd(NodeR** sourceHead) {
 		toFree = *sourceHead;
 		*sourceHead = (*sourceHead)->next;
 		free(toFree);
+	}
+
+	return newList;
+}
+NodeR* SplitNodeToOddByRef(NodeR** sourceHead) {
+	NodeR* newList = NULL;
+	NodeR* toFree = NULL;
+	NodeR* newListT = NULL;
+	NodeR* temp = *sourceHead;
+
+	while (temp != NULL && temp->next != NULL) {
+		if (temp->next->value % 2 == 1) {
+			if (newList == NULL) {
+				newListT = temp->next;
+				newList = newListT;
+				temp->next = temp->next->next;
+				newList->next = NULL;
+			}
+			else {
+				newListT->next = temp->next;
+				newListT = newListT->next;
+				temp->next = temp->next->next;
+				newListT->next = NULL;
+			}
+		}
+		else {
+			temp = temp->next;
+		}
+	}
+
+	// for first chain
+	if ((*sourceHead) != NULL && (*sourceHead)->value % 2 == 1) {
+		newListT = (*sourceHead);
+		*sourceHead = (*sourceHead)->next;
+		newListT->next = newList;
+		newList = newListT;
 	}
 
 	return newList;
