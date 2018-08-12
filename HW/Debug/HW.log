@@ -1,0 +1,43 @@
+﻿Build started 12/08/2018 21:28:15.
+     1>Project "c:\Users\libxp\documents\visual studio 2010\Projects\HW\HW\HW.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\HW.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt Program.c
+         Program.c
+     1>c:\users\libxp\documents\visual studio 2010\projects\hw\hw\program.c(39): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(304) : see declaration of 'scanf'
+     1>c:\users\libxp\documents\visual studio 2010\projects\hw\hw\program.c(48): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(304) : see declaration of 'scanf'
+     1>c:\users\libxp\documents\visual studio 2010\projects\hw\hw\program.c(59): warning C4098: 'main' : 'void' function returning a value
+     1>c:\users\libxp\documents\visual studio 2010\projects\hw\hw\program.c(210): warning C4101: 'value' : unreferenced local variable
+     1>c:\users\libxp\documents\visual studio 2010\projects\hw\hw\program.c(234): warning C4101: 'value' : unreferenced local variable
+     1>c:\users\libxp\documents\visual studio 2010\projects\hw\hw\program.c(252): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(304) : see declaration of 'scanf'
+     1>c:\users\libxp\documents\visual studio 2010\projects\hw\hw\program.c(259): warning C4101: 'temp1' : unreferenced local variable
+     1>c:\users\libxp\documents\visual studio 2010\projects\hw\hw\program.c(312): warning C4101: 'j' : unreferenced local variable
+     1>c:\users\libxp\documents\visual studio 2010\projects\hw\hw\program.c(338): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(304) : see declaration of 'scanf'
+     1>c:\users\libxp\documents\visual studio 2010\projects\hw\hw\program.c(429): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(304) : see declaration of 'scanf'
+       ManifestResourceCompile:
+         All outputs are up-to-date.
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"c:\users\libxp\documents\visual studio 2010\Projects\HW\Debug\HW.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\HW.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"c:\users\libxp\documents\visual studio 2010\Projects\HW\Debug\HW.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"c:\users\libxp\documents\visual studio 2010\Projects\HW\Debug\HW.lib" /MACHINE:X86 Debug\HW.exe.embed.manifest.res
+         Debug\Node.obj
+         Debug\NodeModel.obj
+         Debug\Program.obj
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\HW.exe.embed.manifest" /manifest Debug\HW.exe.intermediate.manifest
+         All outputs are up-to-date.
+       LinkEmbedManifest:
+         All outputs are up-to-date.
+         HW.vcxproj -> c:\users\libxp\documents\visual studio 2010\Projects\HW\Debug\HW.exe
+       FinalizeBuildStatus:
+         Deleting file "Debug\HW.unsuccessfulbuild".
+         Touching "Debug\HW.lastbuildstate".
+     1>Done Building Project "c:\Users\libxp\documents\visual studio 2010\Projects\HW\HW\HW.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.28
